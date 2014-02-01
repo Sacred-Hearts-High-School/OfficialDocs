@@ -6,7 +6,8 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
-    @documents = Document.all
+    #@documents = Document.all
+    @documents = Document.order("id DESC").page(params[:page]).per(5)
   end
 
   # GET /documents/1
@@ -52,6 +53,12 @@ class DocumentsController < ApplicationController
       end
     end
   end
+
+  # 多選處理
+  def multiupdate
+     
+  end
+
 
 
   # DELETE /documents/1

@@ -3,6 +3,7 @@
 <table class="table table-bordered">
   <thead>
     <tr bgcolor="lightgray">
+      <th></th>
       <th>收文日期</th>
       <th>總收文</th>
       <th>發文機關</th>
@@ -22,6 +23,7 @@
   <tbody>
     <% @documents.each do |document| %>
       <tr>
+         <td><%= check_box_tag 'document_ids[]', document.id, false, :id=>"document_id_#{document.id}" -%></td>
         <td><%= document.received_at %></td>
         <td><%= document.received_no %></td>
         <td><%= document.sent_from %></td>
@@ -39,8 +41,6 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
+<%= paginate @documents %>
 <%= link_to '新增一份公文', new_document_path , :class=>"btn" %>
 <%= link_to '匯入Excel檔案', {:controller=>'documents', :action=>'upload'}, :class=>"btn" %>
