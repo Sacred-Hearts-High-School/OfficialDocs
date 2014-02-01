@@ -1,13 +1,12 @@
 OfficialDocs::Application.routes.draw do
 
-  post "file/import"
-  get "file/upload"
   resources :managers
   resources :offices
   resources :documents do
      collection { 
         get :upload
         post :import
+        post :multiupdate
      }
   end
 

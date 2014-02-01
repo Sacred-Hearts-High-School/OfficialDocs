@@ -56,7 +56,9 @@ class DocumentsController < ApplicationController
 
   # 多選處理
   def multiupdate
+     # 還不會處理
      
+     redirect_to root_url, notice:"批次簽收完成！"
   end
 
 
