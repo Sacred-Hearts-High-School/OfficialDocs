@@ -1,5 +1,7 @@
 <h1>公文清單</h1>
 
+<%= form_tag 'multiupdate' do %>
+
 <table class="table table-bordered">
   <thead>
     <tr bgcolor="lightgray">
@@ -38,9 +40,11 @@
         <td><%= link_to '編輯', edit_document_path(document) %></td>
         <td><%= link_to '刪除', document, method: :delete, data: { confirm: '你確定要刪除？此動作無法復原！' } %></td>
       </tr>
-    <% end %>
+     <% end %>
   </tbody>
 </table>
 <%= paginate @documents %>
+<%= submit_tag "批次簽收", :class=>'btn btn-primary' %>
 <%= link_to '新增一份公文', new_document_path , :class=>"btn" %>
 <%= link_to '匯入Excel檔案', {:controller=>'documents', :action=>'upload'}, :class=>"btn" %>
+<% end %>
