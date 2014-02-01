@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Received at:</strong>
+  <%= @document.received_at %>
+</p>
+
+<p>
+  <strong>Received no:</strong>
+  <%= @document.received_no %>
+</p>
+
+<p>
+  <strong>Sent from:</strong>
+  <%= @document.sent_from %>
+</p>
+
+<p>
+  <strong>Doc type:</strong>
+  <%= @document.doc_type %>
+</p>
+
+<p>
+  <strong>Sent no:</strong>
+  <%= @document.sent_no %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @document.title %>
+</p>
+
+<p>
+  <strong>Office:</strong>
+  <%= @document.office_id %>
+</p>
+
+<p>
+  <strong>Manager:</strong>
+  <%= @document.manager_id %>
+</p>
+
+<p>
+  <strong>Manager get:</strong>
+  <%= @document.manager_get %>
+</p>
+
+<p>
+  <strong>Manager back:</strong>
+  <%= @document.manager_back %>
+</p>
+
+<%= link_to 'Edit', edit_document_path(@document) %> |
+<%= link_to 'Back', documents_path %>

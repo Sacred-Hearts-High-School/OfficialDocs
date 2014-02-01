@@ -1,0 +1,57 @@
+<%= form_for(@document) do |f| %>
+  <% if @document.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@document.errors.count, "error") %> prohibited this document from being saved:</h2>
+
+      <ul>
+      <% @document.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :received_at %><br>
+    <%= f.text_field :received_at %>
+  </div>
+  <div class="field">
+    <%= f.label :received_no %><br>
+    <%= f.text_field :received_no %>
+  </div>
+  <div class="field">
+    <%= f.label :sent_from %><br>
+    <%= f.text_field :sent_from %>
+  </div>
+  <div class="field">
+    <%= f.label :doc_type %><br>
+    <%= f.text_field :doc_type %>
+  </div>
+  <div class="field">
+    <%= f.label :sent_no %><br>
+    <%= f.text_field :sent_no %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_area :title %>
+  </div>
+  <div class="field">
+    <%= f.label :office_id %><br>
+    <%= f.number_field :office_id %>
+  </div>
+  <div class="field">
+    <%= f.label :manager_id %><br>
+    <%= f.number_field :manager_id %>
+  </div>
+  <div class="field">
+    <%= f.label :manager_get %><br>
+    <%= f.datetime_select :manager_get %>
+  </div>
+  <div class="field">
+    <%= f.label :manager_back %><br>
+    <%= f.datetime_select :manager_back %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

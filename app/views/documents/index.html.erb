@@ -1,0 +1,46 @@
+<h1>Listing documents</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>收文日期</th>
+      <th>總收文</th>
+      <th>發文機關</th>
+      <th>文別</th>
+      <th>發文字號</th>
+      <th>事由</th>
+      <th>組</th>
+      <th>簽收人</th>
+      <th>簽收日期</th>
+      <th>歸檔日期</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @documents.each do |document| %>
+      <tr>
+        <td><%= document.received_at %></td>
+        <td><%= document.received_no %></td>
+        <td><%= document.sent_from %></td>
+        <td><%= document.doc_type %></td>
+        <td><%= document.sent_no %></td>
+        <td><%= document.title %></td>
+        <td><%= document.office_id %></td>
+        <td><%= document.manager_id %></td>
+        <td><%= document.manager_get %></td>
+        <td><%= document.manager_back %></td>
+        <td><%= link_to '查看', document %></td>
+        <td><%= link_to '編輯', edit_document_path(document) %></td>
+        <td><%= link_to '刪除', document, method: :delete, data: { confirm: '你確定要刪除？此動作無法復原！' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to '新增一份公文', new_document_path %>
+<%= link_to '匯入Excel檔案', {:controller=>'documents', :action=>'upload'} %>

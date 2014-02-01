@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  received_at: MyString
+  received_no: MyString
+  sent_from: MyString
+  doc_type: MyString
+  sent_no: MyString
+  title: MyText
+  office_id: 1
+  manager_id: 1
+  manager_get: 2014-01-28 13:59:28
+  manager_back: 2014-01-28 13:59:28
+
+two:
+  received_at: MyString
+  received_no: MyString
+  sent_from: MyString
+  doc_type: MyString
+  sent_no: MyString
+  title: MyText
+  office_id: 1
+  manager_id: 1
+  manager_get: 2014-01-28 13:59:28
+  manager_back: 2014-01-28 13:59:28

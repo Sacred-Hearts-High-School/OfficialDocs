@@ -1,0 +1,37 @@
+<h1>Listing managers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Provider</th>
+      <th>Uid</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Oauth token</th>
+      <th>Oauth expires at</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @managers.each do |manager| %>
+      <tr>
+        <td><%= manager.provider %></td>
+        <td><%= manager.uid %></td>
+        <td><%= manager.name %></td>
+        <td><%= manager.email %></td>
+        <td><%= manager.oauth_token %></td>
+        <td><%= manager.oauth_expires_at %></td>
+        <td><%= link_to 'Show', manager %></td>
+        <td><%= link_to 'Edit', edit_manager_path(manager) %></td>
+        <td><%= link_to 'Destroy', manager, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Manager', new_manager_path %>
