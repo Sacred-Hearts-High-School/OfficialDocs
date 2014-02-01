@@ -1,8 +1,8 @@
-<h1>Listing documents</h1>
+<h1>公文清單</h1>
 
-<table>
+<table class="table table-bordered">
   <thead>
-    <tr>
+    <tr bgcolor="lightgray">
       <th>收文日期</th>
       <th>總收文</th>
       <th>發文機關</th>
@@ -42,5 +42,5 @@
 
 <br>
 
-<%= link_to '新增一份公文', new_document_path %>
-<%= link_to '匯入Excel檔案', {:controller=>'documents', :action=>'upload'} %>
+<%= link_to '新增一份公文', new_document_path , :class=>"btn" %>
+<%= link_to '匯入Excel檔案', {:controller=>'documents', :action=>'upload'}, :class=>"btn" %>
