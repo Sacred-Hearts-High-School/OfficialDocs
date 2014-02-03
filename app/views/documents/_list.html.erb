@@ -1,4 +1,29 @@
 <i class="icon-search"></i>
+
+<!-- 全選控制 http://viralpatel.net/blogs/multiple-checkbox-select-deselect-jquery-tutorial-example/ -->
+<SCRIPT language="javascript">
+$(function(){
+ 
+    // add multiple select / deselect functionality
+    $("#selectall").click(function () {
+          $('.case').attr('checked', this.checked);
+    });
+ 
+    // if all checkbox are selected, check the selectall checkbox
+    // and viceversa
+    $(".case").click(function(){
+ 
+        if($(".case").length == $(".case:checked").length) {
+            $("#selectall").attr("checked", "checked");
+        } else {
+            $("#selectall").removeAttr("checked");
+        }
+ 
+    });
+});
+</SCRIPT>
+
+
 <%= form_tag multiupdate_documents_path do %>
 
    <% # .html_safe 是指這一段 html 是安全的，叫 rails 不用溢出處理 %>
@@ -15,7 +40,7 @@
 <table class="table table-bordered">
   <thead>
     <tr bgcolor="lightgray">
-      <th></th>
+       <th><input type="checkbox" id="selectall" /></th>
       <th>收文日期</th>
       <th>總收文</th>
       <th>發文機關</th>
@@ -35,7 +60,7 @@
   <tbody>
     <% @documents.each do |document| %>
       <tr>
-         <td><%= check_box_tag 'document_ids[]', document.id, false, :id=>"document_id_#{document.id}" -%></td>
+         <td><%= check_box_tag 'document_ids[]', document.id, false, :class=>"case" -%></td>
         <td><%= document.received_at %></td>
         <td><%= document.received_no %></td>
         <td><%= document.sent_from %></td>
@@ -58,3 +83,7 @@
 <% link_to '新增一份公文', new_document_path , :class=>"btn" %>
 <% link_to '匯入Excel檔案', {:controller=>'documents', :action=>'upload'}, :class=>"btn" %>
 <% end %>
+
+
+
+

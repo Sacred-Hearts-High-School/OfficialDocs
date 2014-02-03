@@ -70,6 +70,13 @@
 
     <div class="container">
 
+       <!-- 此處 flash 效果，由 https://coderwall.com/p/jzofog 提供 -->
+       <% flash.each do |key, value| %>
+           <div class="<%= flash_class(key) %>">
+               <%= value %>
+           </div>
+       <% end %>
+
         <p>
          <%= yield %>
         </p>

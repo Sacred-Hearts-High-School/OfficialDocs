@@ -45,7 +45,7 @@ class DocumentsController < ApplicationController
 
     respond_to do |format|
       if @document.save
-        format.html { redirect_to @document, notice: 'Document was successfully created.' }
+        format.html { redirect_to @document, notice: '一筆公文成功新增。' }
         format.json { render action: 'show', status: :created, location: @document }
       else
         format.html { render action: 'new' }
@@ -59,7 +59,7 @@ class DocumentsController < ApplicationController
   def update
     respond_to do |format|
       if @document.update(document_params)
-        format.html { redirect_to @document, notice: 'Document was successfully updated.' }
+        format.html { redirect_to @document, notice: '公文資料修改成功。' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -89,7 +89,7 @@ class DocumentsController < ApplicationController
         end
      end
 
-     redirect_to root_url, notice:"批次處理完成！"
+     redirect_to root_url, notice:"批次處理已完成！"
   end
 
 
@@ -110,7 +110,7 @@ class DocumentsController < ApplicationController
 
    def import
       Document.import(params[:file])
-      redirect_to root_url, notice:"資料成功匯入"
+      redirect_to root_url, notice:"資料成功匯入! " 
    end
 
 
