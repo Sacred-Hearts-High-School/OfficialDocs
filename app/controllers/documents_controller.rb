@@ -56,9 +56,22 @@ class DocumentsController < ApplicationController
 
   # 多選處理
   def multiupdate
-     # 還不會處理
-     
-     redirect_to root_url, notice:"批次簽收完成！"
+     document_ids = params[:document_ids]
+     op = params[:op]
+     document_ids.each do |doc_id|
+        @document = Document.find(doc_id)
+        case op
+        when "sign" then
+           @document.update_attribute(:manager_get, DateTime.now)
+        when "back" then
+           @document.update_attribute(:manager_back, DateTime.now)
+        when "delete" then
+           @document.update_attribute(:manager_get, DateTime.now)
+        else raise "不支援這個批次處理指令！駭客行為已記錄！"
+        end
+     end
+
+     redirect_to root_url, notice:"批次處理完成！"
   end
 
 
