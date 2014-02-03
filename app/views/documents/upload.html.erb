@@ -11,7 +11,7 @@
    </p>
    <p>
 <%= form_tag 'import', :multipart=>true do %>
-    <%= file_field_tag :file %>
+    <%= file_field_tag :file , accept: '.csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' %>
     <%= submit_tag "匯入檔案", class:'btn btn-primary' %>
 <% end %>
 
@@ -20,7 +20,7 @@
 
 <script>//<![CDATA[
 $(function(){$.fn.bootstrapFileInput=function(){this.each(function(i,elem){var $elem=$(elem);if(typeof $elem.attr('data-bfi-disabled')!='undefined'){return;}
-var buttonWord='Browse';if(typeof $elem.attr('title')!='undefined'){buttonWord=$elem.attr('title');}
+var buttonWord='選擇檔案';if(typeof $elem.attr('title')!='undefined'){buttonWord=$elem.attr('title');}
 var input=$('<div>').append($elem.eq(0).clone()).html();var className='';if(!!$elem.attr('class')){className=' '+$elem.attr('class');}
 $elem.replaceWith('<a class="file-input-wrapper btn'+className+'">'+buttonWord+input+'</a>');}).promise().done(function(){$('.file-input-wrapper').mousemove(function(cursor){var input,wrapper,wrapperX,wrapperY,inputWidth,inputHeight,cursorX,cursorY;wrapper=$(this);input=wrapper.find("input");wrapperX=wrapper.offset().left;wrapperY=wrapper.offset().top;inputWidth=input.width();inputHeight=input.height();cursorX=cursor.pageX;cursorY=cursor.pageY;moveInputX=cursorX-wrapperX-inputWidth+20;moveInputY=cursorY-wrapperY-(inputHeight/2);input.css({left:moveInputX,top:moveInputY});});$('.file-input-wrapper input[type=file]').change(function(){var fileName;fileName=$(this).val();$(this).parent().next('.file-input-name').remove();if(!!$(this).prop('files')&&$(this).prop('files').length>1){fileName=$(this)[0].files.length+' files';}
 else{fileName=fileName.substring(fileName.lastIndexOf('\\')+1,fileName.length);}

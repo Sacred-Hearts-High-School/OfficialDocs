@@ -4,6 +4,10 @@ OfficialDocs::Application.routes.draw do
   resources :offices
   resources :documents do
      collection { 
+        get :listall
+        get :listunget
+        get :listunback
+
         get :upload
         post :import
         post :multiupdate

@@ -10,6 +10,20 @@ class DocumentsController < ApplicationController
     @documents = Document.order("id DESC").page(params[:page]).per(5)
   end
 
+  def listall
+    @documents = Document.order("id DESC").page(params[:page]).per(50)
+  end
+
+  def listunget
+     # 如果還沒有簽到，該datetime欄位為null，此時可以用 ifnull 搜尋
+     @documents = Document.where("ifnull(manager_get,0)=0").order("id DESC").page(params[:page]).per(50)
+  end
+
+  def listunback
+     @documents = Document.where("ifnull(manager_back,0)=0").order("id DESC").page(params[:page]).per(50)
+  end
+
+
   # GET /documents/1
   # GET /documents/1.json
   def show
@@ -65,6 +79,10 @@ class DocumentsController < ApplicationController
            @document.update_attribute(:manager_get, DateTime.now)
         when "back" then
            @document.update_attribute(:manager_back, DateTime.now)
+        when "unsign" then
+           @document.update_attribute(:manager_get, nil)
+        when "unback" then
+           @document.update_attribute(:manager_back, nil)
         when "delete" then
            @document.update_attribute(:manager_get, DateTime.now)
         else raise "不支援這個批次處理指令！駭客行為已記錄！"
