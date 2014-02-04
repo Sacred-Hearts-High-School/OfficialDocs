@@ -8,6 +8,9 @@ OfficialDocs::Application.routes.draw do
         get :listunget
         get :listunback
 
+        get :searchform
+        post :search
+
         get :upload
         post :import
         post :multiupdate

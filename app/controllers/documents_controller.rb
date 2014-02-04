@@ -113,6 +113,13 @@ class DocumentsController < ApplicationController
       redirect_to root_url, notice:"資料成功匯入! " 
    end
 
+   def searchform
+   end
+
+   def search 
+      @keyword="%#{params[:keyword]}%"
+      @documents = Document.where("title like ?",@keyword).order("id DESC").page(params[:page]).per(50)
+   end
 
   private
     # Use callbacks to share common setup or constraints between actions.

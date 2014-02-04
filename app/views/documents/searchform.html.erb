@@ -1,0 +1,10 @@
+<h2>請輸入搜尋關鍵字</h2>
+
+<br />
+<%= form_tag '/documents/search' do %>
+
+   <%= text_field_tag 'keyword', nil, placeholder:'關鍵字', class:'input-medium search-query' %>
+   <%= submit_tag "搜尋", class:'btn' %>
+
+<% end %>
+
