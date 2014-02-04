@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140128055950) do
+ActiveRecord::Schema.define(version: 20140204141252) do
 
   create_table "documents", force: true do |t|
     t.string   "received_at"
@@ -20,21 +20,10 @@ ActiveRecord::Schema.define(version: 20140128055950) do
     t.string   "doc_type"
     t.string   "sent_no"
     t.text     "title"
-    t.integer  "office_id"
-    t.integer  "manager_id"
-    t.datetime "manager_get"
-    t.datetime "manager_back"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "managers", force: true do |t|
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "name"
-    t.string   "email"
-    t.string   "oauth_token"
-    t.datetime "oauth_expires_at"
+    t.string   "office"
+    t.integer  "user_id"
+    t.datetime "user_get"
+    t.datetime "user_back"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -43,6 +32,18 @@ ActiveRecord::Schema.define(version: 20140128055950) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "name"
+    t.string   "email"
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "role"
   end
 
 end

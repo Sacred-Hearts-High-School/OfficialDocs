@@ -2,33 +2,33 @@
 
 <p>
   <strong>Provider:</strong>
-  <%= @manager.provider %>
+  <%= @user.provider %>
 </p>
 
 <p>
   <strong>Uid:</strong>
-  <%= @manager.uid %>
+  <%= @user.uid %>
 </p>
 
 <p>
   <strong>Name:</strong>
-  <%= @manager.name %>
+  <%= @user.name %>
 </p>
 
 <p>
   <strong>Email:</strong>
-  <%= @manager.email %>
+  <%= @user.email %>
 </p>
 
 <p>
   <strong>Oauth token:</strong>
-  <%= @manager.oauth_token %>
+  <%= @user.oauth_token %>
 </p>
 
 <p>
   <strong>Oauth expires at:</strong>
-  <%= @manager.oauth_expires_at %>
+  <%= @user.oauth_expires_at %>
 </p>
 
-<%= link_to 'Edit', edit_manager_path(@manager) %> |
-<%= link_to 'Back', managers_path %>
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

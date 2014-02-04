@@ -22,9 +22,9 @@ class Document < ActiveRecord::Base
          document.sent_no= spreadsheet.row(i)[4]
          document.title= spreadsheet.row(i)[5]
        #  document.office= spreadsheet.row(i)[6]
-       #  document.manager= spreadsheet.row(i)[7]
-         document.manager_get= spreadsheet.row(i)[8]
-         document.manager_back= spreadsheet.row(i)[9]
+       #  document.user= spreadsheet.row(i)[7]
+         document.user_get= spreadsheet.row(i)[8]
+         document.user_back= spreadsheet.row(i)[9]
          document.save!
       end
    end

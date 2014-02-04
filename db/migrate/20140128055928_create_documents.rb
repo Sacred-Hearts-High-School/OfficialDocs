@@ -7,10 +7,12 @@ class CreateDocuments < ActiveRecord::Migration
       t.string :doc_type
       t.string :sent_no
       t.text :title
-      t.belongs_to :office
-      t.belongs_to :manager
-      t.datetime :manager_get
-      t.datetime :manager_back
+      t.string :office
+      t.belongs_to :user
+      t.datetime :user_get
+      t.belongs_to :user
+      t.datetime :user_back
+      t.belongs_to :user
 
       t.timestamps
     end

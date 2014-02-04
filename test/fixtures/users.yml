@@ -6,7 +6,7 @@ one:
   name: MyString
   email: MyString
   oauth_token: MyString
-  oauth_expires_at: 2014-01-28 13:59:50
+  oauth_expires_at: 2014-02-04 12:41:04
 
 two:
   provider: MyString
@@ -14,4 +14,4 @@ two:
   name: MyString
   email: MyString
   oauth_token: MyString
-  oauth_expires_at: 2014-01-28 13:59:50
+  oauth_expires_at: 2014-02-04 12:41:04

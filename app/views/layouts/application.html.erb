@@ -49,12 +49,22 @@
                 </ul>
                 <ul class="nav pull-right">
                    <li id="fat-menu" class="dropdown">
-                   <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">詹嘉隆<b class="caret"></b></a>
+                   <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                      <!-- user logged info -->
+                      <% if current_user %>
+                         <%= current_user.name %>
+                      <% else %>
+                         <%= link_to "請登入", "/auth/google_oauth2", id:"sign_in" %>
+                      <% end %>
+                      <!-- user logged info -->
+                      
+                      
+                      <b class="caret"></b></a>
                        <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
                           <li role="presentation"><a role="menuitem" tabindex="-1" href="#">偏好設定</a></li>
                           <li role="presentation"><a role="menuitem" tabindex="-1" href="#">帳號管理</a></li>
                           <li role="presentation" class="divider"></li>
-                          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">登出</a></li>
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="/auth/signout">登出</a></li>
                        </ul>
                    </li>
                 </ul>

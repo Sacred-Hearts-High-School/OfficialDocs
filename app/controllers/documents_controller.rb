@@ -16,11 +16,11 @@ class DocumentsController < ApplicationController
 
   def listunget
      # 如果還沒有簽到，該datetime欄位為null，此時可以用 ifnull 搜尋
-     @documents = Document.where("ifnull(manager_get,0)=0").order("id DESC").page(params[:page]).per(50)
+     @documents = Document.where("ifnull(user_get,0)=0").order("id DESC").page(params[:page]).per(50)
   end
 
   def listunback
-     @documents = Document.where("ifnull(manager_back,0)=0").order("id DESC").page(params[:page]).per(50)
+     @documents = Document.where("ifnull(user_back,0)=0").order("id DESC").page(params[:page]).per(50)
   end
 
 
@@ -76,15 +76,15 @@ class DocumentsController < ApplicationController
         @document = Document.find(doc_id)
         case op
         when "sign" then
-           @document.update_attribute(:manager_get, DateTime.now)
+           @document.update_attribute(:user_get, DateTime.now)
         when "back" then
-           @document.update_attribute(:manager_back, DateTime.now)
+           @document.update_attribute(:user_back, DateTime.now)
         when "unsign" then
-           @document.update_attribute(:manager_get, nil)
+           @document.update_attribute(:user_get, nil)
         when "unback" then
-           @document.update_attribute(:manager_back, nil)
+           @document.update_attribute(:user_back, nil)
         when "delete" then
-           @document.update_attribute(:manager_get, DateTime.now)
+           @document.update_attribute(:user_get, DateTime.now)
         else raise "不支援這個批次處理指令！駭客行為已記錄！"
         end
      end
@@ -129,7 +129,7 @@ class DocumentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_params
-      params.require(:document).permit(:received_at, :received_no, :sent_from, :doc_type, :sent_no, :title, :office_id, :manager_id, :manager_get, :manager_back)
+      params.require(:document).permit(:received_at, :received_no, :sent_from, :doc_type, :sent_no, :title, :office_id, :user_id, :user_get, :user_back)
     end
 end
 
