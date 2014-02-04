@@ -31,7 +31,8 @@
                    <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">檔案<b class="caret"></b></a>
                        <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
                           <li role="presentation"><a role="menuitem" tabindex="-1" href="/documents/upload">匯入Excel檔案</a></li>
-                          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">資料庫匯出備份</a></li>
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">資料庫匯出CSV備份</a></li>
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">資料庫匯出XLS備份</a></li>
                           <li role="presentation" class="divider"></li>
                           <li role="presentation"><a role="menuitem" tabindex="-1" href="/documents/new">新增一份公文</a></li>
                        </ul>
@@ -49,12 +50,14 @@
                 </ul>
                 <ul class="nav pull-right">
                    <li id="fat-menu" class="dropdown">
-                   <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">
+
                       <!-- user logged info -->
                       <% if current_user %>
+                         <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">
                          <%= current_user.name %>
                       <% else %>
-                         <%= link_to "請登入", "/auth/google_oauth2", id:"sign_in" %>
+                         <a href="/auth/google_oauth2" id="drop3" role="button" class="--dropdown-toggle" data-toggle="--dropdown">
+                          請登入
                       <% end %>
                       <!-- user logged info -->
                       
@@ -64,7 +67,7 @@
                           <li role="presentation"><a role="menuitem" tabindex="-1" href="#">偏好設定</a></li>
                           <li role="presentation"><a role="menuitem" tabindex="-1" href="#">帳號管理</a></li>
                           <li role="presentation" class="divider"></li>
-                          <li role="presentation"><a role="menuitem" tabindex="-1" href="/auth/signout">登出</a></li>
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="/signout">登出</a></li>
                        </ul>
                    </li>
                 </ul>

@@ -69,8 +69,18 @@ $(function(){
         <td><%= document.title %></td>
         <td><%= document.office %></td>
         <td><%= document.user_id %></td>
-        <td><%= document.user_get.strftime("%m/%d/%Y") if document.user_get  %></td>
-        <td><%= document.user_back.strftime("%m/%d/%Y") if document.user_back%></td>
+        <td align="center">
+           <small>
+           <%= document.user_get.strftime("%m/%d") if document.user_get %><br />
+           <%= User.find(document.userid_get).name if document.userid_get %> 
+           </small>
+        </td>
+        <td align="center">
+           <small>
+           <%= document.user_back.strftime("%m/%d") if document.user_back%><br />
+           <%= User.find(document.userid_back).name if document.userid_back %> 
+           </small>
+        </td>
         <td><%= link_to '查看', document %></td>
         <td><%= link_to '編輯', edit_document_path(document) %></td>
         <td><%= link_to '刪除', document, method: :delete, data: { confirm: '你確定要刪除？此動作無法復原！' } %></td>

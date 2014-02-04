@@ -77,12 +77,16 @@ class DocumentsController < ApplicationController
         case op
         when "sign" then
            @document.update_attribute(:user_get, DateTime.now)
+           @document.update_attribute(:userid_get, session[:user_id])
         when "back" then
            @document.update_attribute(:user_back, DateTime.now)
+           @document.update_attribute(:userid_back, session[:user_id])
         when "unsign" then
            @document.update_attribute(:user_get, nil)
+           @document.update_attribute(:userid_get, nil)
         when "unback" then
            @document.update_attribute(:user_back, nil)
+           @document.update_attribute(:userid_back, nil)
         when "delete" then
            @document.update_attribute(:user_get, DateTime.now)
         else raise "不支援這個批次處理指令！駭客行為已記錄！"

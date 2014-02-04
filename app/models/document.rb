@@ -6,6 +6,7 @@ require 'roo'
 
 class Document < ActiveRecord::Base
    belongs_to :office
+   has_many :user
 
    def self.import(file)
 

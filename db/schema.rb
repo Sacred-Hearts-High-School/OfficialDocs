@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140204141252) do
+ActiveRecord::Schema.define(version: 20140204151229) do
 
   create_table "documents", force: true do |t|
     t.string   "received_at"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(version: 20140204141252) do
     t.datetime "user_back"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "userid_get"
+    t.integer  "userid_back"
   end
 
   create_table "offices", force: true do |t|
