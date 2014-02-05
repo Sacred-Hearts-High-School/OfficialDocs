@@ -1,3 +1,4 @@
+<br />
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -12,7 +13,7 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :provider %><br>
+    <%= f.label "登入來源" %><br>
     <%= f.text_field :provider %>
   </div>
   <div class="field">
@@ -20,11 +21,11 @@
     <%= f.text_field :uid %>
   </div>
   <div class="field">
-    <%= f.label :name %><br>
+    <%= f.label "姓名" %><br>
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :email %><br>
+    <%= f.label "電子信箱" %><br>
     <%= f.text_field :email %>
   </div>
   <div class="field">
@@ -32,10 +33,10 @@
     <%= f.text_field :oauth_token %>
   </div>
   <div class="field">
-    <%= f.label :oauth_expires_at %><br>
-    <%= f.datetime_select :oauth_expires_at %>
+    <%= f.label "帳號權限" %><br>
+    <%= f.text_field :role %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "更新使用者", class:'btn btn-primary' %>
   </div>
 <% end %>

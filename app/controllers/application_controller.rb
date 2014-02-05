@@ -16,7 +16,8 @@ class ApplicationController < ActionController::Base
 
   # 處理版型，如上方程式設定
   def my_layout_setting
-     if current_user.nil?
+     if current_user.nil? || current_user.role.nil?
+        # 尚未登入，或者尚未提昇管理權限 (user.role)
         "notlogin"
      else
         # 有登入的話，使用預設版型

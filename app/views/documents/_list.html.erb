@@ -53,9 +53,6 @@ $(function(){
       <th width=42>承辦人</th>
       <th>簽收日期</th>
       <th>歸檔日期</th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -83,9 +80,6 @@ $(function(){
            <%= User.find(document.userid_back).name if document.userid_back %> 
            </small>
         </td>
-        <td><%= link_to '查看', document %></td>
-        <td><%= link_to '編輯', edit_document_path(document) %></td>
-        <td><%= link_to '刪除', document, method: :delete, data: { confirm: '你確定要刪除？此動作無法復原！' } %></td>
       </tr>
      <% end %>
   </tbody>

@@ -1,14 +1,12 @@
-<h1>Listing users</h1>
+<h1>使用者清單</h1>
 
-<table>
+<table class="table table-bordered">
   <thead>
-    <tr>
-      <th>Provider</th>
+    <tr bgcolor="lightyellow">
+      <th>姓名</th>
+      <th>電子信箱</th>
       <th>Uid</th>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Oauth token</th>
-      <th>Oauth expires at</th>
+      <th>權限</th>
       <th></th>
       <th></th>
       <th></th>
@@ -18,15 +16,13 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.provider %></td>
-        <td><%= user.uid %></td>
         <td><%= user.name %></td>
         <td><%= user.email %></td>
-        <td><%= user.oauth_token %></td>
-        <td><%= user.oauth_expires_at %></td>
-        <td><%= link_to 'Show', user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= user.uid %></td>
+        <td><%= user.role %></td>
+        <td><%= link_to '查看', user %></td>
+        <td><%= link_to '編輯', edit_user_path(user) %></td>
+        <td><%= link_to '刪除', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -34,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New User', new_user_path %>
+<%= link_to '新增使用者', new_user_path %>
