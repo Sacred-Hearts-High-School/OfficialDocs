@@ -5,7 +5,8 @@ require 'csv'
 require 'roo'
 
 class Document < ActiveRecord::Base
-   has_many :user
+
+   belongs_to :user
 
    def self.import(file)
 

@@ -75,6 +75,9 @@ class DocumentsController < ApplicationController
      document_ids.each do |doc_id|
         @document = Document.find(doc_id)
         case op
+        when "give2adv" then
+        when "give2special" then
+           @document.update_attribute(:user_id, 1)
         when "sign" then
            @document.update_attribute(:user_get, DateTime.now)
            @document.update_attribute(:userid_get, session[:user_id])

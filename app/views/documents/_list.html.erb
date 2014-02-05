@@ -28,7 +28,9 @@ $(function(){
 
    <% # .html_safe 是指這一段 html 是安全的，叫 rails 不用溢出處理 %>
    <%= select_tag "op", 
-      "<option value='sign'>簽收</option>
+      "<option value='give2adv'>分文給輔導組</option>
+       <option value='give2special'>分文給特教組</option>
+       <option value='sign'>簽收</option>
        <option value='back'>歸檔</option>
        <option value='unsign'>取消簽收</option>
        <option value='unback'>取消歸檔</option>
@@ -47,8 +49,8 @@ $(function(){
       <th>文別</th>
       <th>發文字號</th>
       <th>事由</th>
-      <th>組</th>
-      <th>簽收人</th>
+      <th width=30>處室</th>
+      <th width=42>承辦人</th>
       <th>簽收日期</th>
       <th>歸檔日期</th>
       <th></th>
@@ -68,7 +70,7 @@ $(function(){
         <td><%= document.sent_no %></td>
         <td><%= document.title %></td>
         <td><%= document.office %></td>
-        <td><%= document.user_id %></td>
+        <td><%= document.user.try(:name) %></td>
         <td align="center">
            <small>
            <%= document.user_get.strftime("%m/%d") if document.user_get %><br />
