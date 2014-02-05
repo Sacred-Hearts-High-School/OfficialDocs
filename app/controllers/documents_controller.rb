@@ -7,7 +7,7 @@ class DocumentsController < ApplicationController
   # GET /documents.json
   def index
     #@documents = Document.all
-    @documents = Document.order("id DESC").page(params[:page]).per(5)
+    @documents = Document.order("id DESC").page(params[:page]).per(50)
   end
 
   def listall
@@ -88,7 +88,7 @@ class DocumentsController < ApplicationController
            @document.update_attribute(:user_back, nil)
            @document.update_attribute(:userid_back, nil)
         when "delete" then
-           @document.update_attribute(:user_get, DateTime.now)
+           @document.destroy
         else raise "不支援這個批次處理指令！駭客行為已記錄！"
         end
      end

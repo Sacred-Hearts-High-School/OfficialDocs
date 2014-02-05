@@ -61,7 +61,7 @@ $(function(){
     <% @documents.each do |document| %>
       <tr>
          <td><%= check_box_tag 'document_ids[]', document.id, false, :class=>"case" -%></td>
-        <td><%= document.received_at %></td>
+         <td><small><%= document.received_at.strftime("%m/%d") if document.received_at %></small></td>
         <td><%= document.received_no %></td>
         <td><%= document.sent_from %></td>
         <td><%= document.doc_type %></td>

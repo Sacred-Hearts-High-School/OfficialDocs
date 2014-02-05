@@ -11,10 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140204151229) do
+ActiveRecord::Schema.define(version: 20140205025719) do
 
   create_table "documents", force: true do |t|
-    t.string   "received_at"
+    t.datetime "received_at"
     t.string   "received_no"
     t.string   "sent_from"
     t.string   "doc_type"

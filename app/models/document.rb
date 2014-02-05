@@ -5,7 +5,6 @@ require 'csv'
 require 'roo'
 
 class Document < ActiveRecord::Base
-   belongs_to :office
    has_many :user
 
    def self.import(file)
@@ -15,18 +14,28 @@ class Document < ActiveRecord::Base
 
       (2..spreadsheet.last_row).each do |i|
 
-         document = Document.new
-         document.received_at = spreadsheet.row(i)[0]
-         document.received_no = spreadsheet.row(i)[1]
-         document.sent_from= spreadsheet.row(i)[2]
-         document.doc_type= spreadsheet.row(i)[3]
-         document.sent_no= spreadsheet.row(i)[4]
-         document.title= spreadsheet.row(i)[5]
-       #  document.office= spreadsheet.row(i)[6]
-       #  document.user= spreadsheet.row(i)[7]
-         document.user_get= spreadsheet.row(i)[8]
-         document.user_back= spreadsheet.row(i)[9]
-         document.save!
+         # 有收文號才需要匯入，以免匯入空資料
+         if spreadsheet.row(i)[1] 
+               document = Document.new
+
+               # 第一個欄位原為民國年，修改為西元年之後存入 received_at 欄位
+               rd = spreadsheet.row(i)[0].split('.')
+               year=rd[0].to_i + 1911
+               month=rd[1].to_i
+               day=rd[2].to_i
+               document.received_at = DateTime.new(year,month,day)
+               
+               document.received_no = spreadsheet.row(i)[1]
+               document.sent_from= spreadsheet.row(i)[2]
+               document.doc_type= spreadsheet.row(i)[3]
+               document.sent_no= spreadsheet.row(i)[4]
+               document.title= spreadsheet.row(i)[5]
+               document.office= spreadsheet.row(i)[6]
+             #  document.user= spreadsheet.row(i)[7]
+             #  document.user_get= spreadsheet.row(i)[8]
+             #  document.user_back= spreadsheet.row(i)[9]
+               document.save!
+         end
       end
    end
 
