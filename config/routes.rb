@@ -11,8 +11,11 @@ OfficialDocs::Application.routes.draw do
   resources :documents do
      collection { 
         get :listall
+        get :liststar
         get :listunget
         get :listunback
+        get :speedback
+        post :speedback
 
         get :searchform
         post :search

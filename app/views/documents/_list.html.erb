@@ -30,6 +30,9 @@ $(function(){
    <%= select_tag "op", 
       "<option value='give2adv'>分文給輔導組</option>
        <option value='give2special'>分文給特教組</option>
+       <option value='yellowstar'>加上黃星星</option>
+       <option value='redstar'>加上紅星星</option>
+       <option value='unstar'>取消星星</option>
        <option value='sign'>簽收</option>
        <option value='back'>歸檔</option>
        <option value='unsign'>取消簽收</option>
@@ -43,6 +46,7 @@ $(function(){
   <thead>
     <tr bgcolor="lightgray">
        <th><input type="checkbox" id="selectall" /></th>
+      <th></th>
       <th>收文日期</th>
       <th>總收文</th>
       <th>發文機關</th>
@@ -60,6 +64,9 @@ $(function(){
     <% @documents.each do |document| %>
       <tr>
          <td><%= check_box_tag 'document_ids[]', document.id, false, :class=>"case" -%></td>
+         <td><%= if document.star==1 then image_tag("yellowstar.png", :size=>32) end %>
+           <%= if document.star==2 then image_tag("redstar.png", :size=>32) end %>
+         </td>
          <td><small><%= document.received_at.strftime("%m/%d") if document.received_at %></small></td>
         <td><%= document.received_no %></td>
         <td><%= document.sent_from %></td>

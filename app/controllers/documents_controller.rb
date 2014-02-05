@@ -14,6 +14,10 @@ class DocumentsController < ApplicationController
     @documents = Document.order("id DESC").page(params[:page]).per(50)
   end
 
+  def liststar
+    @documents = Document.where("star IS NOT NULL").order("id DESC").page(params[:page]).per(50)
+  end
+
   def listunget
      # 如果還沒有簽到，該datetime欄位為null，此時可以用 ifnull 搜尋
      @documents = Document.where("ifnull(user_get,0)=0").order("id DESC").page(params[:page]).per(50)
@@ -23,6 +27,10 @@ class DocumentsController < ApplicationController
      @documents = Document.where("ifnull(user_back,0)=0").order("id DESC").page(params[:page]).per(50)
   end
 
+  def speedback
+     flash[:error]="這個功能尚未實作，所以沒有動作！"
+     redirect_to root_url
+  end
 
   # GET /documents/1
   # GET /documents/1.json
@@ -75,7 +83,14 @@ class DocumentsController < ApplicationController
      document_ids.each do |doc_id|
         @document = Document.find(doc_id)
         case op
+        when "yellowstar" then
+           @document.update_attribute(:star, 1)
+        when "redstar" then
+           @document.update_attribute(:star, 2)
+        when "unstar" then
+           @document.update_attribute(:star, nil)
         when "give2adv" then
+           flash[:error]="這個功能尚未實作，所以沒有動作！"
         when "give2special" then
            @document.update_attribute(:user_id, 1)
         when "sign" then
