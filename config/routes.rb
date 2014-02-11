@@ -14,6 +14,7 @@ OfficialDocs::Application.routes.draw do
         get :liststar
         get :listunget
         get :listunback
+        get :speed
         get :speedback
         post :speedback
 

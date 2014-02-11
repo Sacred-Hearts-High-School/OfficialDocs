@@ -1,0 +1,10 @@
+<h2>請輸入歸檔文號</h2>
+
+<br />
+<%= form_tag '/documents/speedback' do %>
+
+   <%= text_field_tag 'recv', nil, placeholder:'文號', class:'input-medium search-query' %>
+   <%= submit_tag "歸檔", class:'btn' %>
+
+<% end %>
+

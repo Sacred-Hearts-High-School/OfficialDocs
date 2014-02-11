@@ -12,24 +12,44 @@ class DocumentsController < ApplicationController
 
   def listall
     @documents = Document.order("id DESC").page(params[:page]).per(50)
+    @head = "所有"
+    render :index
   end
 
   def liststar
     @documents = Document.where("star IS NOT NULL").order("id DESC").page(params[:page]).per(50)
+    @head = "加上星星的"
+    render :index
   end
 
   def listunget
      # 如果還沒有簽到，該datetime欄位為null，此時可以用 ifnull 搜尋
      @documents = Document.where("ifnull(user_get,0)=0").order("id DESC").page(params[:page]).per(50)
+     @head = "尚未簽收的"
+     render :index
   end
 
   def listunback
      @documents = Document.where("ifnull(user_back,0)=0").order("id DESC").page(params[:page]).per(50)
+     @head = "尚未歸檔的"
+     render :index
+  end
+
+  def speed
   end
 
   def speedback
-     flash[:error]="這個功能尚未實作，所以沒有動作！"
-     redirect_to root_url
+
+     # 這一段還要再改，1重複文號沒有判斷  2不應選取多筆項目
+
+     @recv=params[:recv]
+     @documents = Document.where("received_no=?", @recv).order("id DESC").page(params[:page]).per(50)
+
+     @documents[0].update_attribute(:user_back, DateTime.now)
+     @documents[0].update_attribute(:userid_back, session[:user_id])
+
+     flash[:success]="已歸檔公文如下所列"
+     
   end
 
   # GET /documents/1
@@ -90,8 +110,10 @@ class DocumentsController < ApplicationController
         when "unstar" then
            @document.update_attribute(:star, nil)
         when "give2adv" then
-           flash[:error]="這個功能尚未實作，所以沒有動作！"
+           flash[:success]="已將公文分給輔導組"
+           @document.update_attribute(:user_id, 4)
         when "give2special" then
+           flash[:success]="已將公文分給特教組"
            @document.update_attribute(:user_id, 1)
         when "sign" then
            @document.update_attribute(:user_get, DateTime.now)
