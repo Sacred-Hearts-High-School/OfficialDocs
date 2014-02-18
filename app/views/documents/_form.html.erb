@@ -11,47 +11,44 @@
     </div>
   <% end %>
 
+  <br />
   <div class="field">
-    <%= f.label :received_at %><br>
+    收文日期<br>
     <%= f.text_field :received_at %>
   </div>
   <div class="field">
-    <%= f.label :received_no %><br>
+    收文文號<br>
     <%= f.text_field :received_no %>
   </div>
   <div class="field">
-    <%= f.label :sent_from %><br>
+    發文單位<br>
     <%= f.text_field :sent_from %>
   </div>
   <div class="field">
-    <%= f.label :doc_type %><br>
+    文別<br>
     <%= f.text_field :doc_type %>
   </div>
   <div class="field">
-    <%= f.label :sent_no %><br>
+    發文文號<br>
     <%= f.text_field :sent_no %>
   </div>
   <div class="field">
-    <%= f.label :title %><br>
+    發文主旨<br>
     <%= f.text_area :title %>
   </div>
   <div class="field">
-    <%= f.label :office %><br>
-    <%= f.number_field :office %>
+    管理處室<br>
+    <%= f.text_field :office %>
   </div>
   <div class="field">
-    <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
-  </div>
-  <div class="field">
-    <%= f.label :user_get %><br>
+    簽收日期<br>
     <%= f.datetime_select :user_get %>
   </div>
   <div class="field">
-    <%= f.label :user_back %><br>
+    歸檔日期<br>
     <%= f.datetime_select :user_back %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "儲存編輯結果", class:'btn btn-primary' %>
   </div>
 <% end %>

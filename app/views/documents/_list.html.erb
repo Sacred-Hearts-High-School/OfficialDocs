@@ -68,7 +68,7 @@ $(function(){
            <%= if document.star==2 then image_tag("redstar.png", :size=>32) end %>
          </td>
          <td><small><%= document.received_at.strftime("%m/%d") if document.received_at %></small></td>
-         <td><%= if current_user.role==1 then link_to document.received_no,edit_document_path(document) 
+         <td><%= if current_user and current_user.role==1 then link_to document.received_no,edit_document_path(document) 
                  else document.received_no end %>
             </td>
         <td><%= document.sent_from %></td>
