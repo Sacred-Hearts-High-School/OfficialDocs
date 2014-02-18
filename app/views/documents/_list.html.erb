@@ -68,7 +68,9 @@ $(function(){
            <%= if document.star==2 then image_tag("redstar.png", :size=>32) end %>
          </td>
          <td><small><%= document.received_at.strftime("%m/%d") if document.received_at %></small></td>
-        <td><%= document.received_no %></td>
+         <td><%= if current_user.role==1 then link_to document.received_no,edit_document_path(document) 
+                 else document.received_no end %>
+            </td>
         <td><%= document.sent_from %></td>
         <td><%= document.doc_type %></td>
         <td><%= document.sent_no %></td>
@@ -96,7 +98,5 @@ $(function(){
 <% link_to '新增一份公文', new_document_path , :class=>"btn" %>
 <% link_to '匯入Excel檔案', {:controller=>'documents', :action=>'upload'}, :class=>"btn" %>
 <% end %>
-
-
 
 
