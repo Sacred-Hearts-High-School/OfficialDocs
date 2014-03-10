@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Provider:</strong>
+  <strong>登入管道:</strong>
   <%= @user.provider %>
 </p>
 
@@ -11,7 +11,7 @@
 </p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>姓名:</strong>
   <%= @user.name %>
 </p>
 
@@ -26,9 +26,14 @@
 </p>
 
 <p>
-  <strong>Oauth expires at:</strong>
+  <strong>Oauth 過期時間:</strong>
   <%= @user.oauth_expires_at %>
 </p>
 
-<%= link_to '編輯', edit_user_path(@user) %> |
-<%= link_to '返回', users_path %>
+<p>
+  <strong>使用者權限:</strong>
+  <%= @user.role %>
+</p>
+
+<%= link_to '編輯', edit_user_path(@user) ,:class=>'btn' %> |
+<%= link_to '返回', users_path ,:class=>'btn' %>
