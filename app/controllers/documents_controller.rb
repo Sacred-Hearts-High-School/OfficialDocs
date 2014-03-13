@@ -45,10 +45,15 @@ class DocumentsController < ApplicationController
      @recv=params[:recv]
      @documents = Document.where("received_no=?", @recv).order("id DESC").page(params[:page]).per(50)
 
-     @documents[0].update_attribute(:user_back, DateTime.now)
-     @documents[0].update_attribute(:userid_back, session[:user_id])
-
-     flash[:success]="已歸檔公文如下所列"
+     if @documents 
+        @documents[0].update_attribute(:user_back, DateTime.now)
+        @documents[0].update_attribute(:userid_back, session[:user_id])
+        flash[:success]="已歸檔公文如下所列"
+     else
+        # 尚待處理，此處是臭蟲
+        flash[:error]="查無此項公文"
+        render :speed
+     end
      
   end
 

@@ -3,7 +3,7 @@
 <br />
 <%= form_tag '/documents/speedback' do %>
 
-   <%= text_field_tag 'recv', nil, placeholder:'文號', class:'input-medium search-query' %>
+   <%= text_field_tag 'recv', nil, placeholder:'文號', :autofocus=>true, class:'input-medium search-query' %>
    <%= submit_tag "歸檔", class:'btn' %>
 
 <% end %>
