@@ -6,8 +6,13 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
-    #@documents = Document.all
-    @documents = Document.order("id DESC").page(params[:page]).per(50)
+    # 文書組0  處室管理員1  組長2
+    # 組長的處理方式：列出自己尚未簽收的公文
+    if(current_user.role == 2) 
+       @documents = Document.where("ifnull(user_get,0)=0 and user_id=?",current_user.id).order("id DESC").page(params[:page]).per(50)
+    else
+       @documents = Document.order("id DESC").page(params[:page]).per(50)
+    end
   end
 
   def listall
@@ -105,9 +110,15 @@ class DocumentsController < ApplicationController
   def multiupdate
      document_ids = params[:document_ids]
      op = params[:op]
+
+     # 如果使用者沒有選公文，會噴出錯誤，所以加上這一行。
+     document_ids ||=[]
+
      document_ids.each do |doc_id|
         @document = Document.find(doc_id)
         case op
+        when "noselect" then
+           flash[:error]="您沒有選取任何指令"
         when "yellowstar" then
            @document.update_attribute(:star, 1)
         when "redstar" then
