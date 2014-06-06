@@ -3,9 +3,28 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  # 本系統任何頁面都需要進行登入才能使用。Session 控制除外。
+  before_filter :require_login, :except=>[:login]
+
+  def require_login
+     unless logged_in?
+        redirect_to "/users/login"
+     end
+  end
+
+  def logged_in?
+     if current_user.nil? || current_user.role.nil?
+        # 尚未登入，或者尚未提昇管理權限 (user.role)
+        false
+     else
+        # 有登入的話，使用預設版型
+        true
+     end
+  end
+
 
   # 處理登入與未登入使用不同的 layout 版面
-  layout :my_layout_setting
+  # layout :my_layout_setting
 
 
   # 以下處理使用者登入，全站皆適用

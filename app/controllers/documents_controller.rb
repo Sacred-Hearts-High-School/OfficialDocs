@@ -1,14 +1,27 @@
 # encoding: UTF-8
 
 class DocumentsController < ApplicationController
+
   before_action :set_document, only: [:show, :edit, :update, :destroy]
+
+  # 根據不同的使用者身份，使用不同的版型
+  layout :user_layout
+
+  def user_layout
+     #if current_user.admin?
+     #"admin"
+     #else
+     "application"
+  end
 
   # GET /documents
   # GET /documents.json
   def index
     # 文書組0  處室管理員1  組長2
     # 組長的處理方式：列出自己尚未簽收的公文
-    if(current_user.role == 2) 
+    if current_user.nil?
+       @documents = Document.where("id=0").page(params[:page]).per(5)
+    elsif current_user.role == 2
        @documents = Document.where("ifnull(user_get,0)=0 and user_id=?",current_user.id).order("id DESC").page(params[:page]).per(50)
     else
        @documents = Document.order("id DESC").page(params[:page]).per(50)

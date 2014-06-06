@@ -1,6 +1,13 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+
+  # 使用者登入頁面的版型控制
+  def login
+     render :layout => "notlogin"
+  end
+
+
   # GET /users
   # GET /users.json
   def index
