@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8">
+  <title>公文線上簽收系統-總管理員</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+
+  <style>
+     body {
+       padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+     }
+  </style>
+
+</head>
+<body>
+
+   <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="/">線上公文簽收-總管理員</a>
+                <ul class="nav" role="navigation">
+                   <li class="dropdown">
+                   <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">檔案<b class="caret"></b></a>
+                       <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="/documents/upload">匯入Excel檔案</a></li>
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">資料庫匯出CSV備份</a></li>
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">資料庫匯出XLS備份</a></li>
+                          <li role="presentation" class="divider"></li>
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="/documents/new">新增一份公文</a></li>
+                       </ul>
+                   </li>
+                   <li class="dropdown">
+                   <a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown">查閱<b class="caret"></b></a>
+                       <ul class="dropdown-menu" role="menu" aria-labelledby="drop2">
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="/documents/listall">所有公文</a></li>
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="/documents/listunget">尚未簽收公文</a></li>
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="/documents/listunback">尚未歸檔公文</a></li>
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="/documents/liststar">加上星號公文</a></li>
+                          <li role="presentation" class="divider"></li>
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="/documents/searchform">進階搜尋</a></li>
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="/documents/speed">快速歸檔</a></li>
+                          <li role="presentation" class="divider"></li>
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="#myModal" data-toggle="modal">關於本系統</a></li>
+                       </ul>
+                   </li>
+                </ul>
+                <ul class="nav pull-right">
+                   <li id="fat-menu" class="dropdown">
+
+                      <!-- user logged info -->
+                      <% if current_user %>
+                         <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                         <%= current_user.name %>
+                      <% else %>
+                         <a href="/auth/google_oauth2" id="drop3" role="button" class="--dropdown-toggle" data-toggle="--dropdown">
+                          請登入
+                      <% end %>
+                      <!-- user logged info -->
+                      
+                      
+                      <b class="caret"></b></a>
+                       <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="#">偏好設定</a></li>
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="/users">帳號管理</a></li>
+                          <li role="presentation" class="divider"></li>
+                          <li role="presentation"><a role="menuitem" tabindex="-1" href="/signout">登出</a></li>
+                       </ul>
+                   </li>
+                </ul>
+
+                <%= form_tag '/documents/search' ,class:'navbar-search pull-left' do %>
+                     <%= text_field_tag 'keyword', nil, placeholder:'關鍵字搜尋', class:'search-query' %>
+                <% end %>
+
+         </div>
+     </div>
+    </div>
+
+    <div class="container">
+
+       <!-- 此處 flash 效果，由 https://coderwall.com/p/jzofog 提供 -->
+       <% flash.each do |key, value| %>
+           <div class="<%= flash_class(key) %>">
+               <%= value %>
+           </div>
+       <% end %>
+
+        <p>
+         <%= yield %>
+        </p>
+
+    </div>
+    <!-- /container -->
+
+
+
+
+    <!-- Modal --><!-- 使用 javascript 效果顯示「關於」文字 -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">關於本系統</h3>
+  </div>
+  <div class="modal-body">
+     <p>
+     
+        本系統於 2014 年過年期間完成。是我的第一個正式上線的 Ruby On Rails 程式。<br>
+        因為對這個程式語言不熟，所以做起來相當辛苦，需要一邊查資料一邊寫，再一邊除錯。<br />
+        寫這程式的同時，老婆去日本東京玩耍，卻因為十幾年來的罕見大雪困住了，
+        於此同時，我還需要一邊製作日月潭團體輔導的東西，總之有很多事情軋在一起，
+        就這樣一直忙到開學。<br />
+
+        也因此健康亮了紅燈，各種爆肝症狀隨之而來，我心裡默默發誓，我再也不要利用休息日做這種事了。
+
+        <br /><br />
+
+        2014 寒假開學<br />
+        詹嘉隆
+
+     
+     </p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">關閉</button>
+  </div>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
