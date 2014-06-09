@@ -7,6 +7,7 @@ OfficialDocs::Application.routes.draw do
   resources :users do
      collection {
         get :login
+        get :deny
      }
   end
 

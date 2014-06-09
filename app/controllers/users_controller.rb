@@ -7,6 +7,9 @@ class UsersController < ApplicationController
      render :layout => "notlogin"
   end
 
+  def deny
+     # 禁止存取的頁面
+  end
 
   # GET /users
   # GET /users.json
@@ -76,6 +79,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:provider, :uid, :name, :email, :oauth_token, :role, :oauth_expires_at)
+      params.require(:user).permit(:provider, :uid, :name, :email, :oauth_token,:office, :role, :oauth_expires_at)
     end
 end

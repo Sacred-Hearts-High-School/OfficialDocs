@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140205105326) do
+ActiveRecord::Schema.define(version: 20140607110841) do
 
   create_table "documents", force: true do |t|
     t.datetime "received_at"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20140205105326) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "role"
+    t.string   "office"
   end
 
 end

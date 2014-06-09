@@ -3,16 +3,8 @@
 class DocumentsController < ApplicationController
 
   before_action :set_document, only: [:show, :edit, :update, :destroy]
+  before_filter :set_users
 
-  # 根據不同的使用者身份，使用不同的版型
-  layout :user_layout
-
-  def user_layout
-     #if current_user.admin?
-     #"admin"
-     #else
-     "application"
-  end
 
   # GET /documents
   # GET /documents.json
@@ -22,6 +14,9 @@ class DocumentsController < ApplicationController
     if current_user.nil?
        @documents = Document.where("id=0").page(params[:page]).per(5)
     elsif current_user.role == 2
+       @documents = Document.where("office=?",current_user.office).order("id DESC").page(params[:page]).per(50)
+    elsif current_user.role == 3
+       # 處室承辦人
        @documents = Document.where("ifnull(user_get,0)=0 and user_id=?",current_user.id).order("id DESC").page(params[:page]).per(50)
     else
        @documents = Document.order("id DESC").page(params[:page]).per(50)
@@ -123,6 +118,11 @@ class DocumentsController < ApplicationController
   def multiupdate
      document_ids = params[:document_ids]
      op = params[:op]
+     if /^give2/ =~ op
+        str = op.split("_")
+        user = str[1]
+        op="give2"
+     end
 
      # 如果使用者沒有選公文，會噴出錯誤，所以加上這一行。
      document_ids ||=[]
@@ -138,12 +138,8 @@ class DocumentsController < ApplicationController
            @document.update_attribute(:star, 2)
         when "unstar" then
            @document.update_attribute(:star, nil)
-        when "give2adv" then
-           flash[:success]="已將公文分給輔導組"
-           @document.update_attribute(:user_id, 4)
-        when "give2special" then
-           flash[:success]="已將公文分給特教組"
-           @document.update_attribute(:user_id, 1)
+        when "give2" then
+           @document.update_attribute(:user_id, user)
         when "sign" then
            @document.update_attribute(:user_get, DateTime.now)
            @document.update_attribute(:userid_get, session[:user_id])
@@ -178,7 +174,10 @@ class DocumentsController < ApplicationController
   end
 
   def upload
-
+     unless current_user.role <= 2
+        flash[:error]="您沒有上傳Excel的權限！"
+        redirect_to deny_users_url
+     end
   end
 
    def import
@@ -198,6 +197,10 @@ class DocumentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_document
       @document = Document.find(params[:id])
+    end
+
+    def set_users
+       @users = User.where("office=?", current_user.office)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
