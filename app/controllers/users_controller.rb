@@ -14,7 +14,11 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+     unless current_user.role <= 2
+        flash[:error]="您沒有管理帳號的權限！"
+        redirect_to deny_users_url
+     end
+     @users = User.all
   end
 
   # GET /users/1

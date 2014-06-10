@@ -28,14 +28,20 @@ $(function(){
 
    <% if current_user.role ==1 %>
 
-      <% # .html_safe 是指這一段 html 是安全的，叫 rails 不用溢出處理 %>
-      <%= select_tag "op", 
-         "<option value='noselect' selected>請選取指令</option>
+      <select id="op" name="op">
+          <option value='noselect' selected>請選取指令</option>
+
+          <% @users.each do |user| %>
+            <option value='give2_<%= user.id %>'>分文給<%= user.name %></option>
+          <% end %>
+
           <option value='sign'>簽收</option>
           <option value='back'>歸檔</option>
           <option value='unsign'>取消簽收</option>
           <option value='unback'>取消歸檔</option>
-          <option value='delete'>刪除</option>".html_safe  %>
+          <option value='delete'>刪除</option>
+      </select>
+
 
     <% elsif current_user.role ==2 %>
 
@@ -58,11 +64,11 @@ $(function(){
     <% elsif current_user.role ==3 %>
 
       <%= select_tag "op", 
-         "<option value='noselect' selected>請選取指令</option>
+         "<option value='noselect'>請選取指令</option>
           <option value='yellowstar'>加上黃星星</option>
           <option value='redstar'>加上紅星星</option>
           <option value='unstar'>取消星星</option>
-          <option value='sign'>簽收</option>
+          <option value='sign' selected>簽收</option>
           <option value='unsign'>取消簽收</option>".html_safe  %>
 
     <% end %>

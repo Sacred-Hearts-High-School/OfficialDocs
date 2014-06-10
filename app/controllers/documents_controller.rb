@@ -24,26 +24,51 @@ class DocumentsController < ApplicationController
   end
 
   def listall
-    @documents = Document.order("id DESC").page(params[:page]).per(50)
-    @head = "所有"
-    render :index
+     if current_user.role == 1
+        @documents = Document.order("id DESC").page(params[:page]).per(50)
+     elsif current_user.role == 2
+        @documents = Document.where("office=?",current_user.office).order("id DESC").page(params[:page]).per(50)
+     elsif current_user.role == 3
+        @documents = Document.where("user_id=?",current_user.id).order("id DESC").page(params[:page]).per(50)
+     end
+     @head = "所有"
+     render :index
   end
 
   def liststar
-    @documents = Document.where("star IS NOT NULL").order("id DESC").page(params[:page]).per(50)
-    @head = "加上星星的"
-    render :index
+     if current_user.role == 1
+        @documents = Document.where("star IS NOT NULL").order("id DESC").page(params[:page]).per(50)
+     elsif current_user.role == 2
+        @documents = Document.where("star IS NOT NULL and office=?",current_user.office).order("id DESC").page(params[:page]).per(50)
+     elsif current_user.role == 3
+        @documents = Document.where("star IS NOT NULL and user_id=?",current_user.id).order("id DESC").page(params[:page]).per(50)
+     end
+     @head = "加上星星的"
+     render :index
   end
 
   def listunget
-     # 如果還沒有簽到，該datetime欄位為null，此時可以用 ifnull 搜尋
-     @documents = Document.where("ifnull(user_get,0)=0").order("id DESC").page(params[:page]).per(50)
+     if current_user.role==1
+        # 如果還沒有簽到，該datetime欄位為null，此時可以用 ifnull 搜尋
+        @documents = Document.where("ifnull(user_get,0)=0").order("id DESC").page(params[:page]).per(50)
+     elsif current_user.role==2
+        @documents = Document.where("ifnull(user_get,0)=0 and office=?",current_user.office).order("id DESC").page(params[:page]).per(50)
+     elsif current_user.role==3
+        @documents = Document.where("ifnull(user_get,0)=0 and user_id=?",current_user.id).order("id DESC").page(params[:page]).per(50)
+     end
      @head = "尚未簽收的"
      render :index
   end
 
   def listunback
-     @documents = Document.where("ifnull(user_back,0)=0").order("id DESC").page(params[:page]).per(50)
+     if current_user.role==1
+        @documents = Document.where("ifnull(user_back,0)=0").order("id DESC").page(params[:page]).per(50)
+     elsif current_user.role==2
+        @documents = Document.where("ifnull(user_back,0)=0 and office=?",current_user.office).order("id DESC").page(params[:page]).per(50)
+     elsif current_user.role==3
+        @documents = Document.where("ifnull(user_back,0)=0 and user_id=?",current_user.id).order("id DESC").page(params[:page]).per(50)
+     end
+
      @head = "尚未歸檔的"
      render :index
   end
