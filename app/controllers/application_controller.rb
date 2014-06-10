@@ -32,12 +32,8 @@ class ApplicationController < ActionController::Base
 
   # 處理版型，如上方程式設定
   def my_layout_setting
-     if current_user.role == 1
-        "admin"
-     elsif current_user.role == 2
-        "manager"
-     elsif current_user.role == 3
-        "worker"
+     if current_user.role > 0
+        "application"
      else
         # 有登入的話，使用預設版型
         "guest"

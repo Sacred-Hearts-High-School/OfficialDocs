@@ -9,66 +9,40 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
-    # 文書組0  處室管理員1  組長2
+    # 文書組1  處室管理員2  組長3
     # 組長的處理方式：列出自己尚未簽收的公文
     if current_user.nil?
        @documents = Document.where("id=0").page(params[:page]).per(5)
-    elsif current_user.role == 2
-       @documents = Document.where("office=?",current_user.office).order("id DESC").page(params[:page]).per(50)
     elsif current_user.role == 3
        # 處室承辦人
-       @documents = Document.where("ifnull(user_get,0)=0 and user_id=?",current_user.id).order("id DESC").page(params[:page]).per(50)
+       @documents = Document.where("ifnull(user_get,0)=0").default(current_user).page(params[:page]).per(50)
     else
-       @documents = Document.order("id DESC").page(params[:page]).per(50)
+       @documents = Document.default(current_user).page(params[:page]).per(50)
     end
   end
 
   def listall
-     if current_user.role == 1
-        @documents = Document.order("id DESC").page(params[:page]).per(50)
-     elsif current_user.role == 2
-        @documents = Document.where("office=?",current_user.office).order("id DESC").page(params[:page]).per(50)
-     elsif current_user.role == 3
-        @documents = Document.where("user_id=?",current_user.id).order("id DESC").page(params[:page]).per(50)
-     end
+     # 使用 model scopes 精簡查詢指令的範例。將 current_user 送進查詢 model
+     @documents = Document.default(current_user).page(params[:page]).per(50)
      @head = "所有"
      render :index
   end
 
   def liststar
-     if current_user.role == 1
-        @documents = Document.where("star IS NOT NULL").order("id DESC").page(params[:page]).per(50)
-     elsif current_user.role == 2
-        @documents = Document.where("star IS NOT NULL and office=?",current_user.office).order("id DESC").page(params[:page]).per(50)
-     elsif current_user.role == 3
-        @documents = Document.where("star IS NOT NULL and user_id=?",current_user.id).order("id DESC").page(params[:page]).per(50)
-     end
+     @documents = Document.where("star IS NOT NULL").default(current_user).page(params[:page]).per(50)
      @head = "加上星星的"
      render :index
   end
 
   def listunget
-     if current_user.role==1
-        # 如果還沒有簽到，該datetime欄位為null，此時可以用 ifnull 搜尋
-        @documents = Document.where("ifnull(user_get,0)=0").order("id DESC").page(params[:page]).per(50)
-     elsif current_user.role==2
-        @documents = Document.where("ifnull(user_get,0)=0 and office=?",current_user.office).order("id DESC").page(params[:page]).per(50)
-     elsif current_user.role==3
-        @documents = Document.where("ifnull(user_get,0)=0 and user_id=?",current_user.id).order("id DESC").page(params[:page]).per(50)
-     end
+     # 如果還沒有簽到，該datetime欄位為null，此時可以用 ifnull 搜尋
+     @documents = Document.where("ifnull(user_get,0)=0").default(current_user).page(params[:page]).per(50)
      @head = "尚未簽收的"
      render :index
   end
 
   def listunback
-     if current_user.role==1
-        @documents = Document.where("ifnull(user_back,0)=0").order("id DESC").page(params[:page]).per(50)
-     elsif current_user.role==2
-        @documents = Document.where("ifnull(user_back,0)=0 and office=?",current_user.office).order("id DESC").page(params[:page]).per(50)
-     elsif current_user.role==3
-        @documents = Document.where("ifnull(user_back,0)=0 and user_id=?",current_user.id).order("id DESC").page(params[:page]).per(50)
-     end
-
+     @documents = Document.where("ifnull(user_back,0)=0").default(current_user).page(params[:page]).per(50)
      @head = "尚未歸檔的"
      render :index
   end
@@ -77,18 +51,15 @@ class DocumentsController < ApplicationController
   end
 
   def speedback
-
-     # 這一段還要再改，1重複文號沒有判斷  2不應選取多筆項目
-
      @recv=params[:recv]
-     @documents = Document.where("received_no=?", @recv).order("id DESC").page(params[:page]).per(50)
+     @documents = Document.where("received_no=?", @recv).order("id DESC").limit(1).page(params[:page]).per(50)
 
      if @documents 
         @documents[0].update_attribute(:user_back, DateTime.now)
         @documents[0].update_attribute(:userid_back, session[:user_id])
         flash[:success]="已歸檔公文如下所列"
      else
-        # 尚待處理，此處是臭蟲
+        # 尚待處理，此處是臭蟲 ??
         flash[:error]="查無此項公文"
         render :speed
      end

@@ -8,6 +8,17 @@ class Document < ActiveRecord::Base
 
    belongs_to :user
 
+   # 可以精簡查詢條件的 model scopes
+   def self.default(user)
+      if user.role == 1
+         order("id DESC")
+      elsif user.role == 2
+         where("office=?",user.office).order("id DESC")
+      elsif user.role == 3
+         where("user_id=?",user.id).order("id DESC")
+      end
+   end
+
    def self.import(file)
 
       spreadsheet = open_spreadsheet(file)
